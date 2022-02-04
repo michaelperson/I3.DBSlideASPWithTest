@@ -1,0 +1,20 @@
+﻿@using I3.DBSlideASP.MVC.Models
+@model StudentDetails
+
+<h1>@Model.Nom.ToUpper(), @Model.Prenom</h1>
+<p><strong>Date de naissance :</strong> @Model.DateNaissance.ToString("dd-MM-yyyy")</p>
+<p>Cela fait @Model.Age ans.</p>
+<details>
+    <summary>Informations étudiant</summary>
+    <dl>
+        @*dl : Definition List*@
+        <dt>Section : </dt>  @*dt : definition Title*@
+        <dd>@Model.Section_id</dd>  @*dd : definition data*@
+        <dt>Course : </dt>
+        <dd>@Model.Course_id</dd>
+        <dt>Identifiant : </dt>
+        <dd>@Model.Identifiant</dd>
+        <dt>Résultat annuel (sur 20) : </dt>
+        <dd>@Model.ResultatAnnuel (@Model.Pourcentage%)</dd>
+    </dl>
+</details> 

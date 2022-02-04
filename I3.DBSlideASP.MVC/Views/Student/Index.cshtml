@@ -1,0 +1,12 @@
+﻿@using I3.DBSlideASP.MVC.Models
+@model IEnumerable<StudentListItem>
+
+@*<p><strong>Nombre d'étudiants :</strong> @ViewData["number"]</p>*@
+<p><strong>Nombre d'étudiants :</strong> @Model.Count()</p>
+@Html.ActionLink("Ajouter un étudiant...","Create","Student")
+<ul>
+    @foreach (StudentListItem item in Model)
+    {
+        <li><a href="/student/details/@item.Id"><div>@item.Nom @item.Prenom @item.Section_id</div></a></li>
+    }
+</ul>

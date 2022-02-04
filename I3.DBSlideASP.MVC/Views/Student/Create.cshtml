@@ -1,0 +1,73 @@
+﻿@using I3.DBSlideASP.MVC.Models
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@model StudentCreateForm
+
+@if (Model is not null)
+{
+
+
+    @if (!ViewContext.ModelState.IsValid)
+    {
+        @Html.ValidationSummary(true,
+            "Le formulaire contient "+ViewContext.ModelState.ErrorCount+ "erreur(s).",
+            new { @class ="text-danger" }
+            )
+    }
+    @using (Html.BeginForm())
+    {
+        <div>
+            @Html.LabelFor(m => m.Nom)
+            @Html.EditorFor(m => m.Nom, new { htmlAttributes = new { @class = "form-control", minlength = 2, maxlength = 16, required = true } })
+            @Html.ValidationMessageFor(m => m.Nom, null, new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Prenom)
+            @Html.EditorFor(m => m.Prenom, new { htmlAttributes = new { @class = "form-control", minlength = 2, maxlength = 16, required = true } })
+            @Html.ValidationMessageFor(m => m.Prenom, null, new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.DateNaissance)
+            @Html.EditorFor(m => m.DateNaissance, new { htmlAttributes = new { @class = "form-control", required = true } })
+            @Html.ValidationMessageFor(m => m.DateNaissance, null, new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ResultatAnnuel)
+            @Html.EditorFor(m => m.ResultatAnnuel, new { htmlAttributes = new { @class = "form-control", min = 0, max = 20, required = true } })
+            @Html.ValidationMessageFor(m => m.ResultatAnnuel, null, new { @class = "text-danger" })
+
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Section_id)
+            @Html.DropDownListFor(
+                   m => m.Section_id,
+                   Model.Section_ids.Select(o => new SelectListItem { Value = o.ToString(), Text = o.ToString() }),
+                   "Veuillez sélectionner une section",
+                   new { @class = "form-control", required = true
+                   })
+            @Html.ValidationMessageFor(m => m.Section_id, null, new { @class = "text-danger" })
+
+        </div>
+        <div>
+
+            @Html.LabelFor(m => m.Course_id)
+            @Html.DropDownListFor(
+                   m => m.Course_id,
+                   Model.Course_ids.Select(o => new SelectListItem { Value = o, Text = o }),
+                   "Veuillez sélectionner un cours",
+                   new { @class = "form-control", required = true
+                   })
+            @Html.ValidationMessageFor(m => m.Course_id, null, new { @class = "text-danger" })
+
+
+        </div>
+        <div>
+            <input type="submit" value="Ajouter l'étudiant" />
+        </div>
+    }
+}
+else
+{
+    <div>
+        <p>Erreur avec le modèle</p>
+    </div>
+}

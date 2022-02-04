@@ -1,0 +1,54 @@
+﻿@model IEnumerable<I3.DBSlideASP.MVC.Models.ProfessorListItem>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+@if(TempData["Error"] != null){
+    <div class="alert-danger alert">
+        <h5>Erreur :</h5>
+        <p>@TempData["Error"]</p>
+    </div>
+}
+<h1>Index</h1>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Professor_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Professor_Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Section_Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Professor_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Professor_Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Section_Id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Professor_Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Professor_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Professor_Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

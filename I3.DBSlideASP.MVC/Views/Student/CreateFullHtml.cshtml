@@ -1,0 +1,101 @@
+﻿@using I3.DBSlideASP.MVC.Models
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@model StudentCreateForm
+
+@{ 
+    void CheckErrors(string tagName)
+    {
+        ModelStateEntry modelStateEntry;
+
+        if (!ViewContext.ModelState.IsValid && ViewContext.ModelState.TryGetValue(tagName, out modelStateEntry))
+        {
+        <span style="color:white; background-color:red">
+            @foreach (var error in modelStateEntry.Errors)
+            {
+                @error.ErrorMessage<br/>
+            }
+        </span>
+            }
+        }
+    }
+@if (Model is not null)
+{
+
+
+@if (!ViewContext.ModelState.IsValid)
+{
+    <div>
+        Le formulaire contient @ViewContext.ModelState.ErrorCount erreur(s).
+    </div>
+}
+<form method="post">
+    <div>
+        @*l'attribut for du label pointe vers l'objet ayant un id équivalant*@
+        <label for="Nom">
+            Nom :
+        </label>
+        @*l'attribut name de notre formulaire récupère l'information à faire passer dans la propriété du model ayant le même nom*@
+        <input type="text" name="Nom" id="Nom" minlength="2" maxlength="16" required/>
+        @{ CheckErrors("Nom"); }
+    </div>
+    <div>
+        <label for="Prenom">
+            Prenom :
+        </label>
+        <input type="text" name="Prenom" id="Prenom" minlength="2" maxlength="16" required />
+        @{ CheckErrors("Prenom"); }
+
+    </div>
+    <div>
+        <label for="DateNaissance">
+            Date de naissance :
+        </label>
+        <input type="date" name="DateNaissance" id="DateNaissance" required />
+        @{ CheckErrors("DateNaissance"); }
+
+    </div>
+    <div>
+        <label for="ResultatAnnuel">
+            Résultat annuel:
+        </label>
+        <input type="number" min="0" max="20" name="ResultatAnnuel" id="ResultatAnnuel" required />
+        @{ CheckErrors("ResultatAnnuel"); }
+
+    </div>
+    <div>
+        <label for="Section_id">
+            Section :
+        </label>
+        <select name="Section_id" id="Section_id" required>
+            @foreach (int s_id in Model.Section_ids)
+            {
+                <option>@s_id</option>
+            }
+        </select>
+        @{ CheckErrors("Section_id"); }
+
+    </div>
+    <div>
+        <label for="Course_id">
+            Course :
+        </label>
+        <select name="Course_id" id="Course_id" required>
+            @foreach (string c_id in Model.Course_ids)
+            {
+                <option>@c_id</option>
+            }
+        </select>
+        @{ CheckErrors("Course_id"); }
+
+    </div>
+    <div>
+        <input type="submit" value="Ajouter l'étudiant" />
+    </div>
+</form>
+}
+else
+{
+    <div>
+        <p>Erreur avec le modèle</p>
+    </div>
+}
